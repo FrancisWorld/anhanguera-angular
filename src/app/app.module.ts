@@ -9,6 +9,7 @@ import { NotaComponent } from './nota/nota.component';
 import {MatIconModule} from '@angular/material/icon'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InicioComponent } from './inicio/inicio.component';
+import { SubmenuComponent } from './layout/sidebar/submenu.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { InicioComponent } from './inicio/inicio.component';
     SidebarComponent,
     HomeComponent,
     NotaComponent,
-    InicioComponent
+    InicioComponent,
+    SubmenuComponent
   ],
   imports: [
     BrowserModule,

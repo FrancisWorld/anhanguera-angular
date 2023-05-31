@@ -6,7 +6,14 @@ import {
   Output,
 } from '@angular/core';
 import { navbarData } from './nav-data';
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  keyframes,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { INavbarData } from './helper';
 
 interface SideBarToggle {
   screenWidth: number;
@@ -29,14 +36,15 @@ interface SideBarToggle {
     ]),
     trigger('rotate', [
       transition(':enter', [
-        animate('370ms',
+        animate(
+          '370ms',
           keyframes([
             style({ transform: 'rotate(0deg)', offset: 0 }),
             style({ transform: 'rotate(360deg)', offset: 1 }),
           ])
         ),
       ]),
-    ])
+    ]),
   ],
 })
 export class SidebarComponent implements OnInit {
@@ -45,6 +53,7 @@ export class SidebarComponent implements OnInit {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  multiple: boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -76,5 +85,16 @@ export class SidebarComponent implements OnInit {
       screenWidth: this.screenWidth,
       collapsed: this.collapsed,
     });
+  }
+
+  handleClick(item: INavbarData): void {
+    if (!this.multiple) {
+      for (const modelItem of this.navData) {
+        if (item !== modelItem && modelItem.expanded) {
+          modelItem.expanded = false;
+        }
+      }
+    }
+    item.expanded = !item.expanded;
   }
 }
