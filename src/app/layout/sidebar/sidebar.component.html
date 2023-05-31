@@ -1,17 +1,39 @@
 <div class="sidebar" [ngClass]="collapsed ? 'sidebar-collapsed' : ''">
     <div class="logo-container">
-        <button class="logo">A</button>
-        <div class="logo-text" *ngIf="collapsed"></div>
-        <button class="btn-close" *ngIf="collapsed">
+        <button class="logo" (click)="toggleCollapse()"> <mat-icon aria-hidden="false"
+                aria-label="Example home icon">menu</mat-icon>
+        </button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">Area do aluno</div>
+        <button class="btn-close" @rotate @fadeInOut *ngIf="collapsed" (click)="closeSidebar()">
             <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
         </button>
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-nav-item" *ngFor="let data of navData">
-            <a class="sidebar-nav-link" [routerLink]="[data.rota]">
-                <mat-icon aria-hidden="false" aria-label="Example home icon">{{data.icon}}</mat-icon>
-                <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+            <a class="sidebar-nav-link" (click)="handleClick(data)" *ngIf="data.items && data.items.length > 0">
+                <mat-icon class="sidebar-link-icon" aria-hidden="false"
+                    aria-label="Example home icon">{{data.icon}}</mat-icon>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">{{data.label}}</span>
+                <mat-icon *ngIf="data.items && collapsed && !data.expanded"
+                    class="menu-collapse-icon">keyboard_arrow_right</mat-icon>
+                <mat-icon *ngIf="data.items && collapsed && data.expanded"
+                    class="menu-collapse-icon">keyboard_arrow_down</mat-icon>
             </a>
+
+            <a class="sidebar-nav-link" *ngIf="!data.items || (data.items && data.items.length === 0)"
+                [routerLink]="[data.rota]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <mat-icon class="sidebar-link-icon" aria-hidden="false"
+                    aria-label="Example home icon">{{data.icon}}</mat-icon>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">{{data.label}}</span>
+            </a>
+            <div *ngIf="collapsed && data.items && data.items.length > 0">
+                <app-submenu 
+                    [data]="data"
+                    [multiple]="multiple" 
+                    [expanded]="data.expanded" 
+                    [collapsed]="collapsed">
+            </app-submenu>
+            </div>
         </li>
     </ul>
 </div>
