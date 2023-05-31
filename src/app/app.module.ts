@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { NotaComponent } from './nota/nota.component';
 import {MatIconModule} from '@angular/material/icon'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InicioComponent } from './inicio/inicio.component';
+import { SubmenuComponent } from './layout/sidebar/submenu.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     SidebarComponent,
     HomeComponent,
-    NotaComponent
+    NotaComponent,
+    InicioComponent,
+    SubmenuComponent
   ],
   imports: [
     BrowserModule,

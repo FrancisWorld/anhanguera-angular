@@ -1,1 +1,2 @@
-<app-sidebar></app-sidebar>
+<app-sidebar (onToggleSidebar)="onToggleSidebar($event)"></app-sidebar>
+<app-home [collapsed]="isSideBarCollapsed" [screenWidth]="screenWidth"></app-home>
